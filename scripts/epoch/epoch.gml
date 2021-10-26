@@ -1,0 +1,1 @@
+return date_second_span(date_create_datetime(1970,1,1,0,0,0),date_current_datetime());

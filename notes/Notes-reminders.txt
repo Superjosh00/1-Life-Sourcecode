@@ -1,0 +1,5 @@
+All "UserEvent0" events are used for having things happen if you interact with an object (bumping a block)
+(object needs to have "has_action" variaible for player to detect it
+
+
+

@@ -1,0 +1,86 @@
+	#region //Run
+		if (state == PS_RUN){
+			if (!keyboard_check_direct(vk_left) or !keyboard_check_direct(vk_right)){
+				state = PS_IDLE //potentaly change this to a run_stop or something
+			}
+			
+			#region //Right
+				if (image_xscale == 1){
+					if (hsp < max_hsp){
+					var new_hsp = hsp + (accel_speed * image_xscale)
+				
+						#region //Wall Collision
+								var detected_col = false
+								for (var i = x; i < x + new_hsp; i ++){
+									var spr_bottomright = position_meeting(i + (sprite_width / 2), y - 1, obj_collision)
+									var spr_midright = position_meeting(i + (sprite_width / 2), y - (sprite_height / 2), obj_collision)
+									var spr_topright = position_meeting(i + (sprite_width / 2), y - sprite_height, obj_collision)		
+		
+		
+									if (spr_bottomright or spr_midright or spr_topright){	//This checks if bottom left, right, and middle are touching a collision object
+										hsp = 0	
+										x = i
+										detected_col = true
+										break
+									}
+								}
+							
+								if (detected_col == false){
+									hsp = new_hsp
+								}
+		#endregion
+
+					}
+				}
+			#endregion
+			
+			#region //Left
+				else {
+					if (hsp > -max_hsp){
+				var new_hsp = hsp + (accel_speed * image_xscale)
+				
+					#region //Wall Collision
+							var detected_col = false
+							for (var i = 0; i < abs(new_hsp) ; i += accel_speed){
+								show_debug_message("-------------------------")
+								show_debug_message("i: " + string(i))
+								show_debug_message("x: " + string(x))
+								show_debug_message("new_hsp: " + string(abs(new_hsp)))
+								show_debug_message("-------------------------")
+								
+								var spr_bottomleft = position_meeting(x + (sprite_width / 2), y - 1, obj_collision)
+								var spr_midleft = position_meeting(x + (sprite_width / 2), y - (sprite_height / 2), obj_collision)
+								var spr_topleft = position_meeting(x + (sprite_width / 2), y - sprite_height, obj_collision)		
+		
+		
+								if (spr_bottomleft or spr_midleft or spr_topleft){	//This checks if bottom left, right, and middle are touching a collision object
+									//x = x - hsp
+									hsp = 0	
+									
+									show_debug_message("collided")
+									detected_col = true
+									break
+								}
+								
+								
+								
+								if (i > 2000 or i < -2000 ){
+									show_debug_message("infiniloop")
+									break	
+									
+								}
+							}
+							
+							if (detected_col == false){
+								show_debug_message("hsp = " + string(hsp))
+
+								hsp = new_hsp
+							}
+	#endregion					
+					
+				}
+			}
+			#endregion
+		}
+	
+	#endregion

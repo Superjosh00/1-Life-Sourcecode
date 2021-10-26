@@ -1,0 +1,16 @@
+NOTES FOR TILESTARS
+(should try to study other games movement instead of just rivals
+
+can have run-stop animation, but its completely cancelable
+
+interestringly, instead of starting from 0, then incrementing to 7 (by something like .3 for example), roa goes straight to 7 after jumpstart
+
+
+air_fric = .02
+air_accel = .3
+
+holding forward adds air acceleration (air_accel) first, then applies air friction (air_accel - air_fric = .28). only applies if hsp < max airspeed
+
+jump_change = 3
+
+jump_change adds hsp once jumpstart ends
